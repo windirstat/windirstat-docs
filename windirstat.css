@@ -70,6 +70,11 @@ a.wdslnk:active {
     background-color: #F0F0F0;
 }
 
+#menu .sidelogo {
+    text-align: center;
+    margin-top: 10px;
+}
+
 #page {
     padding: 12px;
     padding-top: 1em;
