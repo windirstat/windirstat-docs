@@ -50,16 +50,35 @@ export async function getLatestPrerelease(owner, repo) {
 }
 
 const owner = 'windirstat';
-const repo = 'windirstat-next';
+const repo = 'windirstat';
 
 getLatestPrerelease(owner, repo).then(latestRelease => {
     if (latestRelease) {
-        document.getElementById('latest-version').textContent = latestRelease.name.split(' ').pop();
-        document.getElementById('release-name').textContent = latestRelease.name;
-        document.getElementById('published-date').textContent = new Date(latestRelease.published_at).toLocaleDateString();
-        document.getElementById('download-link').href = latestRelease.download_url;
-        document.getElementById('download-link').textContent = latestRelease.download_url ? 'Download' : 'No download available';
+        const latestVersionElement = document.getElementById('latest-version');
+        const releaseNameElement = document.getElementById('release-name');
+        const publishedDateElement = document.getElementById('published-date');
+        const downloadLinkElement = document.getElementById('download-link');
+
+        if (latestVersionElement) {
+            latestVersionElement.textContent = latestRelease.version.replace(/.+\/v(.+)\/(.+)/, '$1 ($2)');
+        }
+
+        if (releaseNameElement) {
+            releaseNameElement.textContent = latestRelease.name;
+        }
+
+        if (publishedDateElement) {
+            publishedDateElement.textContent = new Date(latestRelease.published_at).toLocaleDateString();
+        }
+
+        if (downloadLinkElement) {
+            downloadLinkElement.href = latestRelease.download_url;
+            downloadLinkElement.textContent = latestRelease.download_url ? 'Download' : 'No Download Available';
+        }
     } else {
-        document.getElementById('latest-version').textContent = 'Unable to fetch release information';
+        const latestVersionElement = document.getElementById('latest-version');
+        if (latestVersionElement) {
+            latestVersionElement.textContent = 'N/A';
+        }
     }
 });
