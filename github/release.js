@@ -60,7 +60,7 @@ getLatestRelease(owner, repo).then(latestRelease => {
         const downloadLinkElement = document.getElementById('download-link');
 
         if (latestVersionElement) {
-            latestVersionElement.textContent = latestRelease.version.replace(/.+\/v(.+)\/(.+)/, '$1 ($2)');
+            latestVersionElement.textContent = latestRelease.version.replace(/.+\/v(.+)/, '$1');
         }
 
         if (releaseNameElement) {
