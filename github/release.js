@@ -52,7 +52,7 @@ export async function getLatestPrerelease(owner, repo) {
 const owner = 'windirstat';
 const repo = 'windirstat';
 
-getLatestPrerelease(owner, repo).then(latestRelease => {
+getLatestRelease(owner, repo).then(latestRelease => {
     if (latestRelease) {
         const latestVersionElement = document.getElementById('latest-version');
         const releaseNameElement = document.getElementById('release-name');
