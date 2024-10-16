@@ -1,3 +1,23 @@
+function getArchitecture() {
+  const userAgent = navigator.userAgent || "";
+  const platform = navigator.platform || "";
+
+  if (userAgent.includes("arm") || platform.includes("arm")) {
+    return "ARM";
+  }
+  if (userAgent.includes("aarch64") || userAgent.includes("arm64") || platform.includes("aarch64")) {
+    return "ARM64";
+  }
+  if (userAgent.includes("x86_64") || userAgent.includes("x64") || platform.includes("x86_64")) {
+    return "x64";
+  }
+  if (userAgent.includes("i686") || userAgent.includes("x86") || platform.includes("i686")) {
+    return "x86";
+  }
+
+  return null;
+}
+
 export async function getLatestRelease(owner, repo) {
     const url = `https://api.github.com/repos/${owner}/${repo}/releases/latest`;
 
@@ -31,7 +51,14 @@ getLatestRelease(owner, repo).then(latestRelease => {
         const downloadLinkElement = document.getElementById('download-link');
 
         if (latestVersionElement) {
-            latestVersionElement.textContent = latestRelease.version.replace(/.+\/v(.+)/, '$1');
+            const arch = getArchitecture()
+            const ver = latestRelease.version.replace(/.+\/v(.+)/, '$1')            
+            if (arch) {
+                const href = "windirstat:/WinDirStat-" + getArchitecture() + '.msi'
+                latestVersionElement.innerHTML = `<a style="color:white; text-decoration:none;" href="${href}">${ver}</a>`;
+            } else {
+                latestVersionElement.textContent = ver;
+            }
         }
 
         if (releaseNameElement) {
@@ -48,7 +75,7 @@ getLatestRelease(owner, repo).then(latestRelease => {
         }
 
         document.querySelectorAll('a').forEach(link => {
-			const href = link.getAttribute('href');
+            const href = link.getAttribute('href');
             if (href.startsWith('windirstat:/')) {
                 link.setAttribute('href', href.replace(
                     'windirstat:/',
