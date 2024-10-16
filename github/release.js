@@ -20,35 +20,6 @@ export async function getLatestRelease(owner, repo) {
     }
 }
 
-export async function getLatestPrerelease(owner, repo) {
-    const url = `https://api.github.com/repos/${owner}/${repo}/releases`;
-
-    try {
-        const response = await fetch(url);
-        if (!response.ok) {
-            throw new Error(`Error fetching releases: ${response.status}`);
-        }
-
-        const data = await response.json();
-
-        const latestPrerelease = data.find(release => release.prerelease);
-
-        if (!latestPrerelease) {
-            throw new Error('No prerelease found');
-        }
-
-        return {
-            version: latestPrerelease.tag_name,
-            name: latestPrerelease.name,
-            published_at: latestPrerelease.published_at,
-            download_url: latestPrerelease.assets[0] ? latestPrerelease.assets[0].browser_download_url : null
-        };
-    } catch (error) {
-        console.error("Failed to fetch the latest pre-release", error);
-        return null;
-    }
-}
-
 const owner = 'windirstat';
 const repo = 'windirstat';
 
@@ -75,6 +46,17 @@ getLatestRelease(owner, repo).then(latestRelease => {
             downloadLinkElement.href = latestRelease.download_url;
             downloadLinkElement.textContent = latestRelease.download_url ? 'Download' : 'No Download Available';
         }
+
+        document.querySelectorAll('a').forEach(link => {
+			const href = link.getAttribute('href');
+            if (href.startsWith('windirstat:/')) {
+                link.setAttribute('href', href.replace(
+                    'windirstat:/',
+                    `https://github.com/windirstat/windirstat/releases/download/${latestRelease.version}/`
+                ));
+            }
+        });
+        
     } else {
         const latestVersionElement = document.getElementById('latest-version');
         if (latestVersionElement) {
