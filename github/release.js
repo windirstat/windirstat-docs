@@ -66,7 +66,12 @@ getLatestRelease(owner, repo).then(latestRelease => {
         }
 
         if (publishedDateElement) {
-            publishedDateElement.textContent = new Date(latestRelease.published_at).toLocaleDateString();
+            publishedDateElement.textContent = `Released: ${new Date(latestRelease.published_at).toLocaleDateString(undefined, {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            })}`;
+            publishedDateElement.hidden = false;
         }
 
         if (downloadLinkElement) {

@@ -22,7 +22,8 @@
   <a class="skip-link" href="#page">Skip to content</a> 
   <script type="module" src="github/release.js"></script>
   <p class="site-branding"><img src="images/logo_wds_white.png" alt="WinDirStat logo with text" height="72" width="191" /><br />
-  <span class="latest-version">Latest Version: <span id="latest-version"><a href="download.html">See downloads</a></span></span></p>
+  <span class="latest-version">Latest Version: <span id="latest-version"><a href="download.html">See downloads</a></span>
+  <span class="published-date" id="published-date" hidden="hidden"></span></span></p>
   <table id="frame" cellpadding="0" cellspacing="0" border="0" width="100%">
     <colgroup>
       <col />
@@ -42,11 +43,17 @@
         <p class="sidelogo"><img src="images/logo_50px.png" alt="Colored WinDirStat logo" height="50" width="50" /></p>
       </td>
       <td id="page" valign="top">
-        <p>The links below will always point to the link to the latest executables or installers that are hosted on GitHub.</p>
+        <p>Install WinDirStat from the <a href="https://apps.microsoft.com/detail/9ph1gl95p3wf">Microsoft Store</a> if you want Store-managed installation and updates, or use the links below for the latest executables and installers hosted on GitHub.</p>
         <table class="download-table">
           <tr>
             <th>Description</th>
             <th>Download Link</th>
+          </tr>
+          <tr>
+            <td>Microsoft Store App</td>
+            <td>
+              <a href="https://apps.microsoft.com/detail/9ph1gl95p3wf">apps.microsoft.com/detail/9ph1gl95p3wf</a>
+            </td>
           </tr>
           <tr>
             <td>Intel 64-Bit MSI Installer</td>
@@ -87,6 +94,7 @@
         </table>
         <p>You may also install it with:</p>
         <ul>
+          <li>📦 <a href="https://apps.microsoft.com/detail/9ph1gl95p3wf">Microsoft Store</a></li>
           <li>📦 <tt>winget install -e --id WinDirStat.WinDirStat</tt> (or use <tt>winget upgrade</tt> subsequently)</li>
           <li>📦 <tt>choco install windirstat</tt> (or use <tt>choco upgrade windirstat</tt> subsequently)</li>
           <li>📦 <tt>scoop install extras/windirstat</tt> (requires <tt>scoop bucket add extras</tt>)</li>
@@ -98,23 +106,7 @@
       </td>
     </tr>
   </table>
-  <p class="site-footer miniari">WinDirStat is Open Source software. You can redistribute and/or modify it under the terms of the GNU Public License, version 2 (GPLv2).<br />
-  Last Updated: <span class="last-updated">May 2, 2026</span>
-  <script>
-  //<![CDATA[
-  (function () {
-    var scripts = document.getElementsByTagName('script');
-    var currentScript = scripts[scripts.length - 1];
-    var lastUpdated = currentScript.previousSibling;
-    while (lastUpdated && lastUpdated.nodeType !== 1) {
-      lastUpdated = lastUpdated.previousSibling;
-    }
-    if (lastUpdated) {
-      lastUpdated.textContent = (new Date(document.lastModified)).toISOString();
-    }
-  }());
-  //]]>
-  </script></p>
+  <p class="site-footer miniari">WinDirStat is Open Source software. You can redistribute and/or modify it under the terms of the GNU Public License, version 2 (GPLv2).</p>
 </body>
 </html>
 
