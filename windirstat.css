@@ -483,15 +483,12 @@ a.download-button:active {
     border-top: 1px solid var(--line);
 }
 
-.versioned-download {
-    font-size: 0.86rem;
-}
-
-.versioned-download::after {
-    content: " — versioned filename";
+.no-script-note {
+    padding: 0.7rem 0.8rem;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: var(--surface-soft);
     color: var(--muted);
-    font-size: 0.88em;
-    text-decoration: none;
 }
 
 .release-status,
@@ -505,6 +502,15 @@ a.download-button:active {
     display: grid;
     gap: 0.75rem;
     margin: 1rem 0 1.2rem 0;
+}
+
+.release-group {
+    display: grid;
+    gap: 0.75rem;
+}
+
+.release-group:empty {
+    display: none;
 }
 
 .release-card {
@@ -569,21 +575,34 @@ a.download-button:active {
 }
 
 .release-assets {
+    width: 100%;
     margin: 0;
-    padding: 0;
+    border-collapse: collapse;
+    table-layout: fixed;
     border-top: 1px solid #e6ece7;
-    list-style: none;
 }
 
-.release-asset {
-    display: flex;
-    align-items: baseline;
-    gap: 0.75rem;
-    padding: 0.55rem 0;
+.release-assets th,
+.release-assets td {
+    width: 50%;
+    padding: 0.55rem 0.6rem;
     border-bottom: 1px solid #e6ece7;
+    text-align: left;
+    vertical-align: top;
 }
 
-.release-asset:last-child {
+.release-assets th {
+    background: #eef4ef;
+    color: #173f24;
+    font-size: 0.82rem;
+}
+
+.release-assets th + th,
+.release-assets td + td {
+    border-left: 1px solid #e6ece7;
+}
+
+.release-assets tbody tr:last-child td {
     border-bottom: none;
 }
 
@@ -595,18 +614,21 @@ a.download-button:active {
 }
 
 .release-asset-primary a {
+    min-width: 0;
     overflow-wrap: anywhere;
+}
+
+.release-asset-versioned a {
+    overflow-wrap: anywhere;
+}
+
+.release-asset-unavailable {
+    color: var(--muted);
 }
 
 .release-asset-size {
     flex: 0 0 auto;
     font-size: 0.78rem;
-}
-
-.release-asset > .versioned-download {
-    margin-left: auto;
-    min-width: 0;
-    text-align: right;
 }
 
 .site-footer {
@@ -734,15 +756,31 @@ a.download-button:active {
         margin-left: 0;
     }
 
-    .release-asset {
-        align-items: flex-start;
-        flex-direction: column;
-        gap: 0.2rem;
+    #frame .release-assets tbody {
+        display: table-row-group;
+        width: auto;
     }
 
-    .release-asset > .versioned-download {
-        margin-left: 0;
-        text-align: left;
+    #frame .release-assets tr {
+        display: table-row;
+        width: auto;
+    }
+
+    #frame .release-assets td {
+        display: table-cell;
+        width: 50%;
+    }
+
+    .release-assets th,
+    .release-assets td {
+        padding-right: 0.42rem;
+        padding-left: 0.42rem;
+    }
+
+    .release-asset-primary {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 0;
     }
 }
 

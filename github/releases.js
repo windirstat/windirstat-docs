@@ -87,9 +87,10 @@ function appendText(element, text) {
 }
 
 function createReleaseAsset(release, asset) {
-    const item = document.createElement('li');
-    item.className = 'release-asset';
+    const row = document.createElement('tr');
+    row.className = 'release-asset';
 
+    const directCell = document.createElement('td');
     const primary = document.createElement('span');
     primary.className = 'release-asset-primary';
     const link = document.createElement('a');
@@ -105,20 +106,29 @@ function createReleaseAsset(release, asset) {
         sizeElement.textContent = size;
         primary.appendChild(sizeElement);
     }
-    item.appendChild(primary);
+    directCell.appendChild(primary);
+    row.appendChild(directCell);
 
+    const versionedCell = document.createElement('td');
+    versionedCell.className = 'release-asset-versioned';
     const versioned = getVersionedDownload(release.tag_name, asset.name);
     if (versioned) {
         const versionedLink = document.createElement('a');
         versionedLink.className = 'versioned-download';
         versionedLink.href = versioned.href;
         versionedLink.textContent = versioned.filename;
-        versionedLink.setAttribute('aria-label', `Download ${versioned.filename} with the version in the filename`);
-        versionedLink.title = 'Download with the version in the filename';
-        item.appendChild(versionedLink);
+        versionedLink.setAttribute('aria-label', `Download ${versioned.filename}`);
+        versionedCell.appendChild(versionedLink);
+    } else {
+        const unavailable = document.createElement('span');
+        unavailable.className = 'release-asset-unavailable';
+        unavailable.textContent = '—';
+        unavailable.setAttribute('aria-label', 'No versioned download');
+        versionedCell.appendChild(unavailable);
     }
+    row.appendChild(versionedCell);
 
-    return item;
+    return row;
 }
 
 function createRelease(release, index) {
@@ -154,10 +164,23 @@ function createRelease(release, index) {
     body.className = 'release-body';
 
     if (assets.length) {
-        const list = document.createElement('ul');
-        list.className = 'release-assets';
-        assets.forEach(asset => list.appendChild(createReleaseAsset(release, asset)));
-        body.appendChild(list);
+        const table = document.createElement('table');
+        table.className = 'release-assets';
+        table.setAttribute('aria-label', `${release.name || release.tag_name} downloads`);
+        const head = document.createElement('thead');
+        const header = document.createElement('tr');
+        ['Direct Link', 'Versioned Download'].forEach(label => {
+            const heading = document.createElement('th');
+            heading.scope = 'col';
+            heading.textContent = label;
+            header.appendChild(heading);
+        });
+        head.appendChild(header);
+        table.appendChild(head);
+        const tableBody = document.createElement('tbody');
+        assets.forEach(asset => tableBody.appendChild(createReleaseAsset(release, asset)));
+        table.appendChild(tableBody);
+        body.appendChild(table);
     } else {
         const empty = document.createElement('p');
         empty.textContent = 'This release has no separately uploaded files.';
@@ -189,20 +212,22 @@ function updateLatestVersion(releases) {
 }
 
 async function loadReleases() {
-    const list = document.getElementById('releases-list');
+    const list = document.getElementById('current-releases-list');
+    const legacyList = document.getElementById('legacy-releases');
     const status = document.getElementById('releases-status');
     const fallback = document.getElementById('releases-fallback');
     if (!list || !status) {
         return;
     }
 
-    status.textContent = 'Loading stable releases from GitHub…';
+    status.textContent = 'Loading releases from GitHub…';
     try {
-        const releases = await getReleases();
+        const releases = (await getReleases())
+            .filter(release => !/^release\/v1\./.test(release.tag_name || ''));
+        const legacyCount = legacyList ? legacyList.querySelectorAll('.release-card').length : 0;
         list.replaceChildren(...releases.map(createRelease));
-        status.textContent = releases.length
-            ? `${releases.length} stable releases, newest first.`
-            : 'No stable releases are currently available.';
+        const releaseCount = releases.length + legacyCount;
+        status.textContent = `${releaseCount} ${releaseCount === 1 ? 'release' : 'releases'}, newest first.`;
         if (releases.length && fallback) {
             fallback.hidden = true;
         }

@@ -20,11 +20,12 @@ function redirectDownload() {
         ]);
 
         if (allowedNames.has(filename)) {
+            document.getElementById('download-status').textContent = 'Your download should begin momentarily.';
             const asset = filename.replace(`WinDirStat-${version}`, 'WinDirStat');
             const fallback = document.getElementById('stable-download');
             fallback.href =
                 `https://github.com/windirstat/windirstat/releases/download/release/v${version}/${asset}`;
-            fallback.textContent = `download ${asset} from GitHub instead`;
+            fallback.textContent = `Download ${asset} directly from GitHub instead.`;
             window.location.replace(`${workerOrigin}/downloads${route}`);
         } else {
             document.getElementById('download-status').textContent = 'That download filename is not available.';
