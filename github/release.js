@@ -80,11 +80,6 @@ getLatestRelease(owner, repo).then(latestRelease => {
             downloadLinkElement.textContent = latestRelease.download_url ? 'Download' : 'No Download Available';
         }
 
-        document.querySelectorAll('[data-canonical-download]').forEach(link => {
-            const asset = link.dataset.canonicalDownload;
-            link.href = `https://github.com/${owner}/${repo}/releases/download/${latestRelease.version}/${asset}`;
-        });
-
         const versionedLinks = document.querySelectorAll('[data-versioned-download]');
         versionedLinks.forEach(link => {
             const asset = link.dataset.versionedDownload;
@@ -93,12 +88,7 @@ getLatestRelease(owner, repo).then(latestRelease => {
             link.textContent = filename;
             link.setAttribute('aria-label', `Download ${filename} with the version in the filename`);
             link.title = 'Download with the version in the filename';
-            link.hidden = false;
         });
-        const downloadNameNote = document.getElementById('download-name-note');
-        if (downloadNameNote && versionedLinks.length) {
-            downloadNameNote.hidden = false;
-        }
 
         document.querySelectorAll('a').forEach(link => {
             const href = link.getAttribute('href');

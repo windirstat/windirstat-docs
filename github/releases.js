@@ -7,8 +7,13 @@ const versionedAssets = new Set([
     'WinDirStat-x86.msi',
     'WinDirStat.7z',
     'WinDirStat.zip',
-    'WinDirStat-Hashes.txt'
+    'WinDirStat-Hashes.txt',
+    'WinDirStat_arm64.msix',
+    'WinDirStat_x64.msix',
+    'WinDirStat_x86.msix',
+    'WinDirStat_x86_x64_arm64.msixbundle'
 ]);
+const hiddenAssets = new Set(['WinDirStat-DebugSymbols.7z']);
 const dateFormatter = new Intl.DateTimeFormat(undefined, {
     year: 'numeric',
     month: 'long',
@@ -128,11 +133,6 @@ function createRelease(release, index) {
     title.textContent = release.name || release.tag_name;
     summary.appendChild(title);
 
-    const badge = document.createElement('span');
-    badge.className = 'release-badge';
-    badge.textContent = 'Stable';
-    summary.appendChild(badge);
-
     const meta = document.createElement('span');
     meta.className = 'release-meta';
     const dateValue = release.published_at || release.created_at;
@@ -144,7 +144,7 @@ function createRelease(release, index) {
         appendText(meta, ' · ');
     }
     const assets = Array.isArray(release.assets)
-        ? release.assets.filter(asset => asset.state === 'uploaded')
+        ? release.assets.filter(asset => asset.state === 'uploaded' && !hiddenAssets.has(asset.name))
         : [];
     appendText(meta, `${assets.length} ${assets.length === 1 ? 'file' : 'files'}`);
     summary.appendChild(meta);
@@ -191,6 +191,7 @@ function updateLatestVersion(releases) {
 async function loadReleases() {
     const list = document.getElementById('releases-list');
     const status = document.getElementById('releases-status');
+    const fallback = document.getElementById('releases-fallback');
     if (!list || !status) {
         return;
     }
@@ -202,6 +203,9 @@ async function loadReleases() {
         status.textContent = releases.length
             ? `${releases.length} stable releases, newest first.`
             : 'No stable releases are currently available.';
+        if (releases.length && fallback) {
+            fallback.hidden = true;
+        }
         updateLatestVersion(releases);
     } catch (error) {
         console.error('Failed to load releases', error);

@@ -12,7 +12,11 @@ function redirectDownload() {
             `WinDirStat-${version}-x86.msi`,
             `WinDirStat-${version}.zip`,
             `WinDirStat-${version}.7z`,
-            `WinDirStat-${version}-Hashes.txt`
+            `WinDirStat-${version}-Hashes.txt`,
+            `WinDirStat-${version}_arm64.msix`,
+            `WinDirStat-${version}_x64.msix`,
+            `WinDirStat-${version}_x86.msix`,
+            `WinDirStat-${version}_x86_x64_arm64.msixbundle`
         ]);
 
         if (allowedNames.has(filename)) {

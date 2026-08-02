@@ -4,7 +4,11 @@ const ALLOWED_ASSETS = new Set([
     'WinDirStat-x86.msi',
     'WinDirStat.zip',
     'WinDirStat.7z',
-    'WinDirStat-Hashes.txt'
+    'WinDirStat-Hashes.txt',
+    'WinDirStat_arm64.msix',
+    'WinDirStat_x64.msix',
+    'WinDirStat_x86.msix',
+    'WinDirStat_x86_x64_arm64.msixbundle'
 ]);
 
 const CDN_ORIGIN = 'https://release-assets.githubusercontent.com';

@@ -15,7 +15,11 @@ const aliases = new Map([
     ['WinDirStat-2.7.0-x86.msi', 'WinDirStat-x86.msi'],
     ['WinDirStat-2.7.0.zip', 'WinDirStat.zip'],
     ['WinDirStat-2.7.0.7z', 'WinDirStat.7z'],
-    ['WinDirStat-2.7.0-Hashes.txt', 'WinDirStat-Hashes.txt']
+    ['WinDirStat-2.7.0-Hashes.txt', 'WinDirStat-Hashes.txt'],
+    ['WinDirStat-2.7.0_arm64.msix', 'WinDirStat_arm64.msix'],
+    ['WinDirStat-2.7.0_x64.msix', 'WinDirStat_x64.msix'],
+    ['WinDirStat-2.7.0_x86.msix', 'WinDirStat_x86.msix'],
+    ['WinDirStat-2.7.0_x86_x64_arm64.msixbundle', 'WinDirStat_x86_x64_arm64.msixbundle']
 ]);
 
 function request(filename, method = 'GET', headers) {
@@ -66,6 +70,9 @@ test('rejects unsupported methods, versions, and assets without contacting GitHu
 
     const assetResponse = await handleRequest(request('WinDirStat-2.7.0-source.zip'));
     assert.equal(assetResponse.status, 404);
+
+    const symbolsResponse = await handleRequest(request('WinDirStat-2.7.0-DebugSymbols.7z'));
+    assert.equal(symbolsResponse.status, 404);
 });
 
 test('does not redirect to an insecure or nonstandard GitHub CDN origin', async () => {

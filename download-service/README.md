@@ -10,10 +10,10 @@ The endpoint accepts paths such as:
 https://windirstat.net/downloads/#/v2.7.0/WinDirStat-2.7.0-x64.msi
 ```
 
-Only `GET` and `HEAD`, semantic versions, and the download-page asset names are accepted. The normal path rewrites
-GitHub's temporary CDN response-disposition parameter and redirects the client, so GitHub continues to serve the file.
-If GitHub changes that redirect format, the Worker follows the canonical asset and streams it with the requested
-`Content-Disposition` while preserving range and conditional request headers.
+Only `GET` and `HEAD`, semantic versions, and the supported stable-release asset names are accepted. The normal path
+rewrites GitHub's temporary CDN response-disposition parameter and redirects the client, so GitHub continues to serve
+the file. If GitHub changes that redirect format, the Worker follows the canonical asset and streams it with the
+requested `Content-Disposition` while preserving range and conditional request headers.
 
 ## Deployment
 
