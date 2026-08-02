@@ -1,12 +1,10 @@
 function getArchitecture() {
-  const userAgent = navigator.userAgent || "";
-  const platform = navigator.platform || "";
+  const userAgent = (navigator.userAgent || "").toLowerCase();
+  const platform = (navigator.platform || "").toLowerCase();
 
-  if (userAgent.includes("arm") || platform.includes("arm")) {
-    return "ARM";
-  }
-  if (userAgent.includes("aarch64") || userAgent.includes("arm64") || platform.includes("aarch64")) {
-    return "ARM64";
+  if (userAgent.includes("aarch64") || userAgent.includes("arm64") ||
+      platform.includes("aarch64") || platform.includes("arm64")) {
+    return "arm64";
   }
   if (userAgent.includes("x86_64") || userAgent.includes("x64") || platform.includes("x86_64")) {
     return "x64";
@@ -42,22 +40,24 @@ export async function getLatestRelease(owner, repo) {
 
 const owner = 'windirstat';
 const repo = 'windirstat';
+const versionedDownloadRoot = '/downloads/#';
 
 getLatestRelease(owner, repo).then(latestRelease => {
     if (latestRelease) {
+        const version = latestRelease.version.replace(/^release\/v/, '');
         const latestVersionElement = document.getElementById('latest-version');
         const releaseNameElement = document.getElementById('release-name');
         const publishedDateElement = document.getElementById('published-date');
         const downloadLinkElement = document.getElementById('download-link');
 
         if (latestVersionElement) {
-            const arch = getArchitecture()
-            const ver = latestRelease.version.replace(/.+\/v(.+)/, '$1')            
+            const arch = getArchitecture();
             if (arch) {
-                const href = "windirstat:/WinDirStat-" + getArchitecture() + '.msi'
-                latestVersionElement.innerHTML = `<a style="color:white; text-decoration:none;" href="${href}">${ver}</a>`;
+                const href = "windirstat:/WinDirStat-" + arch + '.msi';
+                latestVersionElement.innerHTML =
+                    `<a style="color:white; text-decoration:none;" href="${href}">${version}</a>`;
             } else {
-                latestVersionElement.textContent = ver;
+                latestVersionElement.textContent = version;
             }
         }
 
@@ -66,11 +66,12 @@ getLatestRelease(owner, repo).then(latestRelease => {
         }
 
         if (publishedDateElement) {
-            publishedDateElement.textContent = `Released: ${new Date(latestRelease.published_at).toLocaleDateString(undefined, {
+            const releaseDate = new Date(latestRelease.published_at).toLocaleDateString(undefined, {
                 year: 'numeric',
                 month: 'long',
                 day: 'numeric'
-            })}`;
+            });
+            publishedDateElement.textContent = `Released: ${releaseDate}`;
             publishedDateElement.hidden = false;
         }
 
@@ -79,9 +80,29 @@ getLatestRelease(owner, repo).then(latestRelease => {
             downloadLinkElement.textContent = latestRelease.download_url ? 'Download' : 'No Download Available';
         }
 
+        document.querySelectorAll('[data-canonical-download]').forEach(link => {
+            const asset = link.dataset.canonicalDownload;
+            link.href = `https://github.com/${owner}/${repo}/releases/download/${latestRelease.version}/${asset}`;
+        });
+
+        const versionedLinks = document.querySelectorAll('[data-versioned-download]');
+        versionedLinks.forEach(link => {
+            const asset = link.dataset.versionedDownload;
+            const filename = asset.replace(/^WinDirStat/, `WinDirStat-${version}`);
+            link.href = `${versionedDownloadRoot}/v${version}/${encodeURIComponent(filename)}`;
+            link.textContent = filename;
+            link.setAttribute('aria-label', `Download ${filename} with the version in the filename`);
+            link.title = 'Download with the version in the filename';
+            link.hidden = false;
+        });
+        const downloadNameNote = document.getElementById('download-name-note');
+        if (downloadNameNote && versionedLinks.length) {
+            downloadNameNote.hidden = false;
+        }
+
         document.querySelectorAll('a').forEach(link => {
             const href = link.getAttribute('href');
-            if (href.startsWith('windirstat:/')) {
+            if (href && href.startsWith('windirstat:/')) {
                 link.setAttribute('href', href.replace(
                     'windirstat:/',
                     `https://github.com/windirstat/windirstat/releases/download/${latestRelease.version}/`
