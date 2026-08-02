@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html SYSTEM "http://www.w3.org/MarkUp/DTD/xhtml-rdfa-2.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" version="XHTML+RDFa 1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemalocation="http://www.w3.org/1999/xhtml http://www.w3.org/MarkUp/SCHEMA/xhtml-rdfa-2.xsd" lang="en" xml:lang="en" dir="ltr" xmlns:og="http://ogp.me/ns#">
 <head>
@@ -7,12 +7,10 @@
   <meta http-equiv="Content-Style-Type" content="text/css" />
   <meta name="robots" content="index" />
   <meta name="revisit-after" content="5 days" />
-  <meta name="description"
-    content="WinDirStat is a free, open-source disk usage analyzer and cleanup assistant for Windows." />
+  <meta name="description" content="WinDirStat is a free, open-source disk usage analyzer for Windows." />
   <meta property="og:title" content="WinDirStat" />
-  <meta property="og:description"
-    content="See what is using disk space, find large or duplicate files, and reclaim storage with WinDirStat." />
-  <meta property="og:image" content="images/wds_rich_preview.png" />
+  <meta property="og:description" content="WinDirStat shows how files and folders use disk space on Windows." />
+  <meta property="og:image" content="images/wds_rich_preview_flat.png" />
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
   <meta name="keywords" content="WinDirStat, WDS, Cushion treemap, treemap, Windows, disk usage statistics, disk" lang="en" xml:lang="en" />
   <meta name="keywords" content="WinDirStat, WDS, Kissenbaumkarten, Baumkarten, Windows, Festplattenstatistik, Festplattenreinigung, Festplattenbereinigung" lang="de" xml:lang="de" />
@@ -24,15 +22,14 @@
   <a class="skip-link" href="#page">Skip to content</a> 
   <script type="module" src="github/release.js"></script>
   <p class="site-branding"><img src="images/logo_wds_white.png" alt="WinDirStat logo with text" height="72" width="191" /><br />
-  <span class="latest-version">Latest Version: <span id="latest-version"><a href="download.html">See downloads</a></span>
-  <span class="published-date" id="published-date" hidden="hidden"></span></span></p>
+  <span class="latest-version">Latest Version: <span id="latest-version"><a href="download.html">See downloads</a></span> <span class="published-date" id="published-date" hidden="hidden"></span></span></p>
   <table id="frame" cellpadding="0" cellspacing="0" border="0" width="100%">
     <colgroup>
       <col />
       <col width="100%" />
     </colgroup>
     <tr>
-      <td id="heading" colspan="2" align="center"><b>See Where Your Disk Space Went</b></td>
+      <td id="heading" colspan="2" align="center"><b>Disk Usage Analysis for Windows</b></td>
     </tr>
     <tr>
       <td id="menu" valign="top">
@@ -45,28 +42,23 @@
         <p class="sidelogo"><img src="images/logo_50px.png" alt="Colored WinDirStat logo" height="50" width="50" /></p>
       </td>
       <td id="page" valign="top">
-        <p class="home-intro">WinDirStat is a free, open-source disk usage analyzer and cleanup assistant for
-        <strong>Microsoft Windows</strong>. Scan a drive or folder to see what is using space and reclaim it.</p>
-        <p class="home-actions"><a class="download-button" href="download.html">Download WinDirStat</a></p>
-        <h3>Explore, understand, and clean up</h3>
+        <p class="home-intro">WinDirStat is a free, open-source disk usage analyzer for <strong>Microsoft Windows</strong>. It scans drives and folders and shows how disk space is distributed.</p>
+        <p>The main WinDirStat project page, source code, and issue tracker are <a href="https://github.com/windirstat/windirstat">on GitHub</a>.</p>
+        <p class="home-actions"><a class="download-button" href="download.html">Downloads</a></p>
+        <h3>Features</h3>
         <ul class="feature-grid">
-          <li><strong>Scan quickly.</strong> Analyze whole drives or individual folders, with multithreaded and direct
-          NTFS scanning where available.</li>
-          <li><strong>See where space goes.</strong> Explore sortable views, extension statistics, Largest Files, and
-          an interactive treemap.</li>
-          <li><strong>Find what matters.</strong> Search and filter results, compare logical and physical sizes, and
-          detect duplicate files by content.</li>
-          <li><strong>Analyze in depth.</strong> Inspect permissions and storage tiers, estimate costs, and identify
-          optimization opportunities.</li>
-          <li><strong>Clean up confidently.</strong> Open, move, or delete items and launch Windows maintenance tools
-          directly from WinDirStat.</li>
-          <li><strong>Fit your workflow.</strong> Watch file-system changes, save or export scans, and use dark mode,
-          configurable layouts, portable settings, and Explorer integration.</li>
+          <li><strong>Scanning</strong> Scan drives or individual folders, with multithreaded and direct NTFS scanning where available.</li>
+          <li><strong>Disk Usage Views</strong> Use sortable lists, extension statistics, Largest Files, and an interactive treemap.</li>
+          <li><strong>Search and Duplicates</strong> Filter results, compare logical and physical sizes, and detect duplicate files by content.</li>
+          <li><strong>File Details</strong> Inspect permissions and storage tiers, estimate costs, and identify possible storage optimizations.</li>
+          <li><strong>File Operations</strong> Open, move, or delete items and run Windows maintenance tools from WinDirStat.</li>
+          <li><strong>Other Tools</strong> Watch file-system changes, save or export scans, and configure layouts, portable settings, dark mode, and Explorer integration.</li>
         </ul>
-        <img class="home-screenshot" src="images/windirstat.jpg"
-          alt="WinDirStat showing file and folder sizes in a directory tree, extension list, and treemap" />
-        <p class="home-caption">In the treemap, each rectangle represents a file. Area shows size, color shows file
-        type, and nesting shows the folder structure.</p>
+        <picture class="home-screenshot">
+          <source media="(prefers-color-scheme: dark)" srcset="images/windirstat-dark.png" />
+          <img src="images/windirstat.jpg" alt="WinDirStat showing the synthetic sample directory, extension list, and treemap" />
+        </picture>
+        <p class="home-caption">The screenshot follows your system theme. In the treemap, each rectangle represents a file. Area shows size, color shows file type, and nesting shows the folder structure.</p>
       </td>
     </tr>
   </table>
