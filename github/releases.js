@@ -42,9 +42,9 @@ export async function getReleases(fetcher = globalThis.fetch) {
         }
     }
 
-    return releases.filter(release => !release.draft && release.published_at).sort((left, right) => {
-        return releaseTimestamp(right) - releaseTimestamp(left);
-    });
+    return releases
+        .filter(release => !release.draft && !release.prerelease && release.published_at)
+        .sort((left, right) => releaseTimestamp(right) - releaseTimestamp(left));
 }
 
 export function formatBytes(bytes) {
@@ -129,8 +129,8 @@ function createRelease(release, index) {
     summary.appendChild(title);
 
     const badge = document.createElement('span');
-    badge.className = release.prerelease ? 'release-badge release-badge-beta' : 'release-badge';
-    badge.textContent = release.prerelease ? 'Beta' : 'Stable';
+    badge.className = 'release-badge';
+    badge.textContent = 'Stable';
     summary.appendChild(badge);
 
     const meta = document.createElement('span');
@@ -152,13 +152,6 @@ function createRelease(release, index) {
 
     const body = document.createElement('div');
     body.className = 'release-body';
-    const releaseLink = document.createElement('p');
-    releaseLink.className = 'release-actions';
-    const notesLink = document.createElement('a');
-    notesLink.href = release.html_url;
-    notesLink.textContent = 'Release notes and source code on GitHub';
-    releaseLink.appendChild(notesLink);
-    body.appendChild(releaseLink);
 
     if (assets.length) {
         const list = document.createElement('ul');
@@ -176,7 +169,7 @@ function createRelease(release, index) {
 }
 
 function updateLatestVersion(releases) {
-    const release = releases.find(item => !item.prerelease);
+    const release = releases[0];
     const versionElement = document.getElementById('latest-version');
     if (!release || !versionElement) {
         return;
@@ -202,13 +195,13 @@ async function loadReleases() {
         return;
     }
 
-    status.textContent = 'Loading public releases from GitHub…';
+    status.textContent = 'Loading stable releases from GitHub…';
     try {
         const releases = await getReleases();
         list.replaceChildren(...releases.map(createRelease));
         status.textContent = releases.length
-            ? `${releases.length} public releases, newest first.`
-            : 'No public releases are currently available.';
+            ? `${releases.length} stable releases, newest first.`
+            : 'No stable releases are currently available.';
         updateLatestVersion(releases);
     } catch (error) {
         console.error('Failed to load releases', error);
