@@ -10,6 +10,7 @@ afterEach(() => {
 });
 
 const aliases = new Map([
+    ['WinDirStat-2.7.0-arm.msi', 'WinDirStat-arm.msi'],
     ['WinDirStat-2.7.0-arm64.msi', 'WinDirStat-arm64.msi'],
     ['WinDirStat-2.7.0-x64.msi', 'WinDirStat-x64.msi'],
     ['WinDirStat-2.7.0-x86.msi', 'WinDirStat-x86.msi'],

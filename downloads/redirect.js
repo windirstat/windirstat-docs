@@ -7,6 +7,7 @@ function redirectDownload() {
     if (match) {
         const [, version, filename] = match;
         const allowedNames = new Set([
+            `WinDirStat-${version}-arm.msi`,
             `WinDirStat-${version}-arm64.msi`,
             `WinDirStat-${version}-x64.msi`,
             `WinDirStat-${version}-x86.msi`,

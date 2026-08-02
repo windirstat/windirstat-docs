@@ -1,4 +1,5 @@
 const ALLOWED_ASSETS = new Set([
+    'WinDirStat-arm.msi',
     'WinDirStat-arm64.msi',
     'WinDirStat-x64.msi',
     'WinDirStat-x86.msi',

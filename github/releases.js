@@ -2,6 +2,7 @@ const repository = 'windirstat/windirstat';
 const releasesApi = `https://api.github.com/repos/${repository}/releases`;
 const pageSize = 100;
 const versionedAssets = new Set([
+    'WinDirStat-arm.msi',
     'WinDirStat-arm64.msi',
     'WinDirStat-x64.msi',
     'WinDirStat-x86.msi',
