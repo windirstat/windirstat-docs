@@ -262,7 +262,17 @@ textarea:focus-visible {
 }
 
 .home-actions {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.75rem 1.25rem;
     margin: 1rem 0 1.35rem 0;
+}
+
+.home-actions a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
 }
 
 .feature-grid {
@@ -707,7 +717,6 @@ a.download-button:active {
 @media (max-width: 720px) {
     body {
         padding: 10px;
-        background-size: auto 520px;
     }
 
     .site-branding {
@@ -847,9 +856,20 @@ a.download-button:active {
         padding: 8px;
     }
 
+    #frame #menu {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0.35rem;
+    }
+
+    #menu p {
+        display: block;
+    }
+
     #menu a,
     #menu .selected {
-        width: calc(50% - 0.46rem);
+        display: block;
+        margin: 0;
         text-align: center;
     }
 }

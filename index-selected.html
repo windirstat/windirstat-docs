@@ -42,18 +42,24 @@
         <p class="sidelogo"><img src="images/logo_50px.png" alt="Colored WinDirStat logo" height="50" width="50" /></p>
       </td>
       <td id="page" valign="top">
-        <p class="home-intro">WinDirStat is a free, open-source disk usage analyzer for <strong>Microsoft Windows</strong>. It scans drives and folders and shows how disk space is distributed.</p>
-        <p>The main WinDirStat project page, source code, and issue tracker are <a href="https://github.com/windirstat/windirstat">on GitHub</a>.</p>
-        <p class="home-actions"><a class="download-button" href="download.html">Downloads</a></p>
+        <p class="home-intro">WinDirStat is a free, open-source disk usage analyzer and cleanup assistant for <strong>Microsoft Windows</strong>. See what fills your drives and folders, then investigate the files that matter.</p>
+        <p class="home-actions"><a class="download-button" href="download.html">Downloads</a> <a href="https://github.com/windirstat/windirstat/wiki/Getting-Started">Getting Started</a></p>
         <h3>Features</h3>
         <ul class="feature-grid">
-          <li><strong>Scanning</strong> Scan drives or individual folders, with multithreaded and direct NTFS scanning where available.</li>
-          <li><strong>Disk Usage Views</strong> Use sortable lists, extension statistics, Largest Files, and an interactive treemap.</li>
-          <li><strong>Search and Duplicates</strong> Filter results, compare logical and physical sizes, and detect duplicate files by content.</li>
-          <li><strong>File Details</strong> Inspect permissions and storage tiers, estimate costs, and identify possible storage optimizations.</li>
-          <li><strong>File Operations</strong> Open, move, or delete items and run Windows maintenance tools from WinDirStat.</li>
-          <li><strong>Other Tools</strong> Watch file-system changes, save or export scans, and configure layouts, portable settings, dark mode, and Explorer integration.</li>
+          <li><strong><a href="https://github.com/windirstat/windirstat/wiki/Scanning">Scanning</a></strong> Scan multiple folders, drives, network shares, or MTP devices. Elevate for accelerated local NTFS scans.</li>
+          <li><strong><a href="https://github.com/windirstat/windirstat/wiki/Reading-Results">Disk Usage Views</a></strong> Explore largest files, file types, treemaps, sunbursts, and flame graphs. Compare logical and physical sizes.</li>
+          <li><strong><a href="https://github.com/windirstat/windirstat/wiki/Search-Filters-and-Duplicates">Search and Duplicates</a></strong> Search by name, size, type, or owner. Compare content hashes, with optional sparse hashing for probable duplicate matches.</li>
+          <li><strong><a href="https://github.com/windirstat/windirstat/wiki/Advanced-Topics#permissions-scanning">Permissions and Analytics</a></strong> Inspect permission entries and estimate storage tier costs using file sizes and modification ages.</li>
+          <li><strong><a href="https://github.com/windirstat/windirstat/wiki/Command-Line-and-CSV">Reports and Monitoring</a></strong> Save and reopen scan snapshots, export CSV/JSON reports, automate scans, and watch file-system changes.</li>
+          <li><strong>Cleanup and Recovery</strong> <a href="https://github.com/windirstat/windirstat/wiki/Cleaning-Up">Run cleanup tools</a> or attempt to <a href="https://github.com/windirstat/windirstat/wiki/Recovering-Files">recover deleted files</a> from local NTFS, exFAT, and FAT drives.</li>
         </ul>
+        <h3>Find Space to Reclaim</h3>
+        <ol>
+          <li>Choose drives or folders in <strong>Select Drives</strong>. Enable duplicate scanning only when needed.</li>
+          <li>Sort by size, inspect <strong>Largest Files</strong>, or press <strong>Ctrl+F</strong> to search. Select an item to locate it in the visualization.</li>
+          <li>Review items in Explorer before cleanup, then refresh the affected results.</li>
+        </ol>
+        <p>Adjust layouts, fonts, dark mode, and portable settings in <a href="https://github.com/windirstat/windirstat/wiki/Settings">Settings</a>. Source code and issue reports are <a href="https://github.com/windirstat/windirstat">on GitHub</a>.</p>
         <picture class="home-screenshot">
           <source media="(prefers-color-scheme: dark)" srcset="images/windirstat-dark.png" />
           <img src="images/windirstat.jpg" alt="WinDirStat showing the synthetic sample directory, extension list, and treemap" />
@@ -62,7 +68,7 @@
       </td>
     </tr>
   </table>
-  <p class="site-footer miniari">WinDirStat is Open Source software. You can redistribute and/or modify it under the terms of the GNU Public License, version 2 (GPLv2).</p>
+  <p class="site-footer miniari">WinDirStat is free, open-source software distributed under the <a href="https://github.com/windirstat/windirstat/blob/master/LICENSE.md">GNU GPL v3 or later</a>.</p>
 </body>
 </html>
 
